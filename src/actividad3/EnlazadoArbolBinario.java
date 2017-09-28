@@ -23,6 +23,10 @@ public class EnlazadoArbolBinario<E> implements ArbolBinario<E>{
                
     }
     
+    private EnlazadoArbolBinario(NodoBinario<E> r){
+        this.raiz=r;
+    }
+    
     public boolean esVacio(){
         if (raiz==null) {
             return true;
@@ -38,11 +42,17 @@ public class EnlazadoArbolBinario<E> implements ArbolBinario<E>{
       return raiz.getElemento();
      }
     public ArbolBinario<E> hijoIzq() throws ArbolVacioExcepcion{
-        return raiz.getIzq();
+        if (esVacio()) {
+            throw new ArbolVacioExcepcion("hola");
+        }return new EnlazadoArbolBinario<>(raiz.getIzq());
+        
     }
 
     public ArbolBinario<E> hijoDer() throws ArbolVacioExcepcion{
-        return 
+         if (esVacio()) {
+            throw new ArbolVacioExcepcion("hola");
+        }return new EnlazadoArbolBinario<>(raiz.getDer());
+        
     }
 
     public boolean esta(E elemento){
