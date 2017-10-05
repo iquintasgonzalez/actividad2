@@ -96,6 +96,28 @@ public interface ArbolBinario<E> {
             }
         }
     }
+    
+    //ejercicio12 
+    
+    public static <E> E padre (ArbolBinario<E> a,E elemento){
+        if (a.esVacio()) {
+            return null;
+            
+        }
+        else if (a.raiz().equals(elemento))return null;
+        else if (a.hijoDer().raiz().equals(elemento)|| a.hijoIzq().raiz().equals(elemento))
+                
+        return a.raiz();
+        
+        else{
+            E e= padre(a.hijoIzq(),elemento);
+        }if (e==null) {
+            return padre(a.hijoDer(), elemento);
+            else return e;
+        }
+            
+        
+    }
     //ejercicio 13
     public static <E> boolean nivelK(ArbolBinario<E> a, E elem, int k) {
         if (a.esVacio()) {
