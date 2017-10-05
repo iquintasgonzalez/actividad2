@@ -28,4 +28,91 @@ public interface ArbolBinario<E> {
     public void setHijoDer(ArbolBinario<E> hd) throws ArbolVacioExcepcion, NullPointerException;
 
     public void suprimir();
+
+    //ejercicio 7
+    public static <E> boolean mismaForma(ArbolBinario<E> a, ArbolBinario<E> b) {
+        if (!a.esVacio() && !b.esVacio()) {
+            return mismaForma(a.hijoIzq(), b.hijoIzq()) && mismaForma(a.hijoDer(), b.hijoDer());
+        } else {
+            return a.esVacio() && b.esVacio();
+        }
+    }
+
+    //ejercicio 8
+    
+    public static <E extends Comparable<E>> boolean arbolSeleccion (ArbolBinario<E> arbol){
+        
+        ArbolBinario<E> menor=null;
+            if (arbol.esVacio()) {
+            return true;
+        }
+            if (arbol.hijoDer().esVacio() && arbol.hijoIzq().esVacio()) {
+            return true;
+        }else if (arbol.hijoDer().esVacio()) {
+            menor=arbol.hijoIzq();
+            return arbol.raiz().equals(menor.raiz())&& arbolSeleccion(menor);
+        }else if (arbol.hijoDer().esVacio()) {
+            menor=arbol.hijoIzq();
+            return arbol.raiz().equals(menor.raiz())&& arbolSeleccion(menor);
+        }else {
+                if (arbol.hijoDer().raiz().compareTo(arbol.hijoIzq().raiz())<0) {
+                    menor=arbol.hijoDer();
+                }else
+                    menor=arbol.hijoIzq();
+        }
+        
+        return arbol.raiz().equals(menor.raiz()) && arbolSeleccion(arbol.hijoDer())&& arbolSeleccion(arbol.hijoIzq());
+    }
+    
+    //ejercicio9
+    public static <E> boolean esCamino(ArbolBinario<E> arbol, String camino) {
+        if (camino.length() == 0) {
+            return true;
+        } else if (arbol.esVacio()) {
+            return false;
+        } else if (arbol.raiz().equals(camino.charAt(0))) {
+            return esCamino(arbol.hijoIzq(), camino.substring(1)) || esCamino(arbol.hijoDer(), camino.substring(1));
+        } else {
+            return false;
+        }
+
+    }
+
+    //ejercicio11
+    public static <E> void visualizarPalabras(ArbolBinario<E> a) {
+        String palabra = "";
+
+        visualizarPalabras(a, palabra);
+    }
+
+    public static <E> void visualizarPalabras(ArbolBinario<E> a, String palabra) {
+        if (!a.esVacio()) {
+            if (a.hijoDer().esVacio() && a.hijoIzq().esVacio()) {
+                System.out.println(palabra + a.raiz());
+            } else {
+                visualizarPalabras(a.hijoIzq(), palabra + a.raiz());
+                visualizarPalabras(a.hijoDer(), palabra + a.raiz());
+
+            }
+        }
+    }
+    //ejercicio 13
+    public static <E> boolean nivelK(ArbolBinario<E> a, E elem, int k) {
+        if (a.esVacio()) {
+            return false;
+        }
+        
+        else if (k == 0) {
+            if (a.raiz().equals(elem)) {
+                return true;
+            }else return nivelK(a.hijoIzq(), elem, k) || nivelK(a.hijoDer(), elem, k);
+        
+        }
+        else if (k==0) {
+            return false;
+        }
+        
+
+        return false;
+    }
 }
